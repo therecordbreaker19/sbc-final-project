@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Dashboard</h1>
+    
+    <!-- Button Container for View All Tasks and Add Task -->
+    <div class="button-container">
+        <a href="{{ url_for('view_tasks') }}" class="button">View All Tasks</a>
+        <a href="{{ url_for('add_task') }}" class="button">Add Task</a>
+    </div>
+    
+    <!-- Random Pending Task Section -->
+    <div class="random-task-container">
+        <div class="random-task">
+            {% if random_task %}
+                <strong>{{ random_task.title }}</strong>
+                <p>{{ random_task.importance }} - {{ random_task.description }} - {{ random_task.status }}</p>
+            {% else %}
+                <p>No pending tasks available.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Roll Random Task Button -->
+    <div class="roll-task-container">
+        <form action="{{ url_for('dashboard') }}" method="POST">
+            <button type="submit" class="button" id="roll-random-task">Roll Random Task</button>
+        </form>
+    </div>
+</body>
+</html>

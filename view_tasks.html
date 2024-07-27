@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Tasks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>View Tasks</h1>
+    <a href="{{ url_for('dashboard') }}" class="back-to-dashboard">Back to Dashboard</a>
+    <ul>
+        {% for task in tasks %}
+            <li class="task-item">
+                <div class="task-details">
+                    <strong>{{ task.title }}</strong> - Importance: {{ task.importance }} - {{ task.description }} - Status: {{ task.status }}
+                </div>
+                <form method="POST" action="{{ url_for('update_task') }}" class="update-form">
+                    <input type="hidden" name="task_index" value="{{ task.id }}">
+                    <label for="status-pending-{{ task.id }}">
+                        <input type="radio" id="status-pending-{{ task.id }}" name="status" value="Pending" {% if task.status == 'Pending' %}checked{% endif %}> Pending
+                    </label>
+                    <label for="status-complete-{{ task.id }}">
+                        <input type="radio" id="status-complete-{{ task.id }}" name="status" value="Complete" {% if task.status == 'Complete' %}checked{% endif %}> Complete
+                    </label>
+                    <button type="submit" class="update-button">Update</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
